@@ -9,11 +9,11 @@ class Converter extends Component {
 
   componentDidUpdate( lastProps, lastState ) {
     
-    // If LBF is disabled
+    // Abort if conversionActive option is disabled from sidebar
     if ( ! this.props.conversionActive ) {
       return
     }
-    
+
     // Check for changes in the title
     if( this.props.postTitle != lastProps.postTitle ) {
       
@@ -22,17 +22,23 @@ class Converter extends Component {
       if( newTitle != this.props.postTitle ) {
         this.props.editPost( { title: newTitle } )
       } 
+
+      return
     } 
 
-    // When selecting a first block or something else (title)
+    // Abort when first electing a block or selecting title
     if ( lastProps.block === null || this.props.block === null ) {
       return
     }
   
-    // Just choosed another block
+    // Abort if user just choose another block
     if ( this.props.block.clientId != lastProps.block.clientId ) {
       this.isQuoteOpen = false
-      this.lastAttributes = this.props.block.attributes
+      return
+    }
+
+    // abort if block is in ignore list
+    if ( this.props.ignoreList.includes( this.props.block.name ) ) {
       return
     }
 

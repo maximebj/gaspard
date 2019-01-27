@@ -11,7 +11,15 @@ class LeBonFrancais extends Component {
 
   state = {
     conversionActive: true,
-    ignoreList: 'core/code\r\ncore/html\r\nadvanced-gutenberg-blocks/code',
+    ignoreList: ['core/code', 'core/html', 'advanced-gutenberg-blocks/code'],
+  }
+
+  updateIgnoreList( ignoreList ) {
+    ignoreList = ignoreList.split('\n')
+    
+    // TODO : save in options
+
+    this.setState( { ignoreList } )
   }
 
   render() {
@@ -28,9 +36,9 @@ class LeBonFrancais extends Component {
         >
           <SidebarOptions
             conversionActive={ this.state.conversionActive }
-            ignoreList={ this.state.ignoreList }
+            ignoreList={ this.state.ignoreList.join('\n') }
             onChangeState={ conversionActive => this.setState( { conversionActive } ) }
-            onChangeIgnoreList= { ignoreList => this.setState( { ignoreList } ) }
+            onChangeIgnoreList= { ignoreList => this.updateIgnoreList( ignoreList ) }
           />
         </PluginSidebar>
         <Converter
