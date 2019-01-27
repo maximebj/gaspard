@@ -1,12 +1,29 @@
-/**
- * Gutenberg Blocks
- *
- * All blocks related JavaScript files should be imported here.
- * You can create a new block folder in this dir and include code
- * for that block here as well.
- *
- * All blocks should be included here since this is the file that
- * Webpack is compiling as the input file.
- */
+const { Fragment } = wp.element
+const { PluginSidebar, PluginSidebarMoreMenuItem } = wp.editPost
+const { registerPlugin } = wp.plugins
 
-import './block/block.js';
+import icon from './icon'
+import SidebarOptions from './sidebar'
+import Converter from './converter'
+
+const Component = () => (
+  <Fragment>
+    <PluginSidebarMoreMenuItem
+      target="lebonfrancais-sidebar"
+    > 
+      Le Bon Français
+    </PluginSidebarMoreMenuItem>
+    <PluginSidebar
+      name="lebonfrancais-sidebar"
+      title="Le Bon Français"
+    >
+      <SidebarOptions/>
+    </PluginSidebar>
+    <Converter/>
+  </Fragment>
+)
+
+registerPlugin( "lebonfrancais", {
+  icon: icon,
+  render: Component,
+} )
