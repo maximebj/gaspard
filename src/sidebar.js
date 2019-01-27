@@ -6,11 +6,6 @@ const { withSelect, withDispatch } = wp.data
 
 class SidebarOptions extends Component {
 
-  state = {
-    active: true,
-    ignoreList: 'core/code\r\ncore/html\r\nadvanced-gutenberg-blocks/code',
-  }
-
   render() { 
 
     return (
@@ -21,8 +16,8 @@ class SidebarOptions extends Component {
           </p>
           <ToggleControl
             label="Conversion activée"
-            checked={ this.state.active }
-            onChange={ () => this.setState( { active : ! this.state.active } ) }
+            checked={ this.props.conversionActive }
+            onChange={ () => this.props.onChangeState( ! this.props.conversionActive ) }
           />
         </PanelBody>
         <PanelBody
@@ -40,8 +35,8 @@ class SidebarOptions extends Component {
           <TextareaControl
             label="Blocs à ignorer"
             help="Le contenu de ces blocs restera intact afin d’éviter des conflits"
-            value={ this.state.ignoreList }
-            onChange={ ignoreList  => co( { ignoreList } ) }
+            value={ this.props.ignoreList }
+            onChange={ ignoreList  => this.props.onChangeIgnoreList( ignoreList ) }
           />
         </PanelBody>
       </Fragment>

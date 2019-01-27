@@ -20,7 +20,7 @@ function le_bon_francais_editor_assets() {
 	wp_enqueue_script(
 		'le_bon_francais-cgb-block-js', 
 		plugins_url( '/dist/blocks.build.js', __FILE__ ),
-		array( 'wp-blocks', 'wp-i18n', 'wp-element', 'wp-editor' ),
+		array( 'wp-blocks', 'wp-i18n', 'wp-element', 'wp-editor', 'wp-edit-post' ),
 		true
 	);
 
