@@ -1,0 +1,16 @@
+.git
+.vscode
+/dev
+/src
+/node_modules
+/scripts
+/config
+.DS_Store
+.distignore
+.editorconfig
+.eslintignore
+.eslintrc.json
+.gitignore
+package-lock.json
+package.json
+readme.md
