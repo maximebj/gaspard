@@ -18,7 +18,7 @@ class Gaspard extends Component {
   componentDidUpdate( lastProps, lastState) {
 
     // Disable conversion if Polylang Pro is enabled and lang is not French
-    if( this.props.lang != "undefined" && this.props.lang != lastProps.lang && this.props.lang != "fr" ) {
+    if( typeof this.props.lang !== "undefined" && this.props.lang != lastProps.lang && this.props.lang != "fr" ) {
       this.setState( { conversionActive: false } )
     }
   }
