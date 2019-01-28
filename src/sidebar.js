@@ -2,12 +2,12 @@ const { Fragment } = wp.element
 const { Component } = wp.element
 const { PanelBody, ToggleControl, TextareaControl } = wp.components
 
-export default class SidebarOptions extends Component {
+class SidebarOptions extends Component {
 
   render() { 
 
     const { conversionActive, ignoreList, lang, onChangeState, onChangeIgnoreList } = this.props
-
+ 
     return (
       <Fragment>
         <PanelBody>
@@ -19,7 +19,7 @@ export default class SidebarOptions extends Component {
             checked={ conversionActive }
             onChange={ () => onChangeState( ! conversionActive ) }
           />
-          { lang != "fr" && lang !== "undefined" (
+          { typeof lang !== "undefined" && lang != 'fr' && (
             <p className="components-menu-item__info">🛑 <em>La langue de cette page n'est pas le Français. La conversion a été désactivée.</em></p>
           ) }
         </PanelBody>
@@ -47,3 +47,5 @@ export default class SidebarOptions extends Component {
 
   }
 }
+
+export default SidebarOptions
