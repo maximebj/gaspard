@@ -5,7 +5,6 @@ const { withSelect, withDispatch } = wp.data
 class Converter extends Component {
 
   isQuoteOpen = false
-  lastAttributes = false
 
   componentDidUpdate( lastProps, lastState ) {
 
@@ -59,8 +58,6 @@ class Converter extends Component {
     // if ( newString ) {
     //   updateBlockAttributes( block.clientId, { content: newString } )
     // }
-
-    // this.lastAttributes = this.props.block.attributes
   }
 
   convert( string ) {
