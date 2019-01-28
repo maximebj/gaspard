@@ -8,37 +8,39 @@ class Converter extends Component {
   lastAttributes = false
 
   componentDidUpdate( lastProps, lastState ) {
+
+    const { conversionActive, postTitle, editPost, block, ignoreList } = this.props
     
     // Abort if conversionActive option is disabled from sidebar
-    if ( ! this.props.conversionActive ) {
+    if ( ! conversionActive ) {
       return
-    }
+    } 
 
     // Check for changes in the title
-    if( this.props.postTitle != lastProps.postTitle ) {
+    if( postTitle != lastProps.postTitle ) {
       
-      const newTitle = this.convert( this.props.postTitle )
+      const newTitle = this.convert( postTitle )
     
-      if( newTitle != this.props.postTitle ) {
-        this.props.editPost( { title: newTitle } )
+      if( newTitle != postTitle ) {
+        editPost( { title: newTitle } )
       } 
 
       return
     } 
 
     // Abort when first electing a block or selecting title
-    if ( lastProps.block === null || this.props.block === null ) {
+    if ( lastProps.block === null || block === null ) {
       return
     }
   
     // Abort if user just choose another block
-    if ( this.props.block.clientId != lastProps.block.clientId ) {
+    if ( block.clientId != lastProps.block.clientId ) {
       this.isQuoteOpen = false
       return
     }
 
     // abort if block is in ignore list
-    if ( this.props.ignoreList.includes( this.props.block.name ) ) {
+    if ( ignoreList.includes( block.name ) ) {
       return
     }
 

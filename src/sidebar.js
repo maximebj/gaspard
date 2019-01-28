@@ -1,12 +1,12 @@
 const { Fragment } = wp.element
 const { Component } = wp.element
 const { PanelBody, ToggleControl, TextareaControl } = wp.components
-const { compose } = wp.compose
-const { withSelect, withDispatch } = wp.data
 
-class SidebarOptions extends Component {
+export default class SidebarOptions extends Component {
 
   render() { 
+
+    const { conversionActive, ignoreList, lang, onChangeState, onChangeIgnoreList } = this.props
 
     return (
       <Fragment>
@@ -16,9 +16,12 @@ class SidebarOptions extends Component {
           </p>
           <ToggleControl
             label="Conversion activée"
-            checked={ this.props.conversionActive }
-            onChange={ () => this.props.onChangeState( ! this.props.conversionActive ) }
+            checked={ conversionActive }
+            onChange={ () => onChangeState( ! conversionActive ) }
           />
+          { lang != "fr" && lang !== "undefined" (
+            <p className="components-menu-item__info">🛑 <em>La langue de cette page n'est pas le Français. La conversion a été désactivée.</em></p>
+          ) }
         </PanelBody>
         <PanelBody
           title="Conversions disponibles"
@@ -35,8 +38,8 @@ class SidebarOptions extends Component {
           <TextareaControl
             label="Blocs à ignorer"
             help="Le contenu de ces blocs restera intact afin d’éviter des conflits"
-            value={ this.props.ignoreList }
-            onChange={ ignoreList  => this.props.onChangeIgnoreList( ignoreList ) }
+            value={ ignoreList }
+            onChange={ ignoreList  => onChangeIgnoreList( ignoreList ) }
           />
         </PanelBody>
       </Fragment>
@@ -44,12 +47,3 @@ class SidebarOptions extends Component {
 
   }
 }
-
-export default compose(
-  withSelect( ( select ) => ( {
-    block: select( 'core/editor' ).getSelectedBlock(),
-  } ) ),
-  withDispatch( dispatch => ( {
-    updateBlockAttributes: dispatch( 'core/editor' ).updateBlockAttributes
-  } ) )
-) ( SidebarOptions )

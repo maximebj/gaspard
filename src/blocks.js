@@ -2,16 +2,25 @@ const { Fragment } = wp.element
 const { PluginSidebar, PluginSidebarMoreMenuItem } = wp.editPost
 const { registerPlugin } = wp.plugins
 const { Component } = wp.element
+const { withSelect } = wp.data
 
 import icon from './icon'
 import SidebarOptions from './sidebar'
 import Converter from './converter'
 
-class LeBonFrancais extends Component {
+class Gaspard extends Component {
 
   state = {
     conversionActive: true,
     ignoreList: ['core/code', 'core/html', 'advanced-gutenberg-blocks/code'],
+  }
+
+  componentDidUpdate( lastProps, lastState) {
+
+    // Disable conversion if Polylang Pro is enabled and lang is not French
+    if( this.props.lang != "undefined" && this.props.lang != lastProps.lang && this.props.lang != "fr" ) {
+      this.setState( { conversionActive: false } )
+    }
   }
 
   updateIgnoreList( ignoreList ) {
@@ -28,15 +37,16 @@ class LeBonFrancais extends Component {
         <PluginSidebarMoreMenuItem
           target="lebonfrancais-sidebar"
         > 
-          Le Bon Français
+          Gaspard
         </PluginSidebarMoreMenuItem>
         <PluginSidebar
           name="lebonfrancais-sidebar"
-          title="Le Bon Français"
+          title="Gaspard"
         >
           <SidebarOptions
             conversionActive={ this.state.conversionActive }
             ignoreList={ this.state.ignoreList.join('\n') }
+            lang={ this.props.lang }
             onChangeState={ conversionActive => this.setState( { conversionActive } ) }
             onChangeIgnoreList= { ignoreList => this.updateIgnoreList( ignoreList ) }
           />
@@ -50,7 +60,9 @@ class LeBonFrancais extends Component {
   }
 }
 
-registerPlugin( "lebonfrancais", {
+registerPlugin( "gaspard", {
   icon: icon,
-  render: LeBonFrancais,
+  render: withSelect( ( select ) => ( {
+    lang: select( 'core/editor' ).getEditedPostAttribute( 'lang' ),
+  } ) ) ( Gaspard ),
 } )
