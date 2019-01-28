@@ -1,6 +1,6 @@
 <?php
 /**
- * Plugin Name: Gaspard –– Convertisseur en bon Français
+ * Plugin Name: Gaspard –– Convertisseur en Bon Français
  * Plugin URI: https://github.com/maximebj/gaspard
  * Description: Gaspard convertit automatiquement les apostrophes, guillemets, points de suspensions en leurs équivalents Français lors de la saisie. Il ajoute également des espaces insécables avant les doubles ponctuations. À votre service ! 
  * Author: maximebj, audrasjb
